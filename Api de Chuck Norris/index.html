@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuck Norris Joke Generator</title>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="dist/styles/deco.css">
+</head>
+<body>
+    <div class="wrapper">
+        <img src="dist/images/images.png" alt="Chuck" height="100" width="100">
+        <p id="joke"></p>
+        <button id="btn">Une autre info sur Chuck Norris ?</button>
+    </div>
+
+    <script>
+        const jokeContainer = document.getElementById("joke");
+        const btn = document.getElementById("btn");
+
+        let getJoke = () => {
+            const apiUrl = "https://api.chucknorris.io/jokes/random";
+        
+            fetch(apiUrl)
+                .then((response) => response.json())
+                .then((data) => {
+                    const joke = data.value;
+                    jokeContainer.textContent = joke;
+                    jokeContainer.classList.remove("fade");
+                    setTimeout(() => {
+                       jokeContainer.classList.add("fade");
+                   }, 10);
+                   console.log(joke);
+               })
+               .catch((error) => {
+                   console.error("Error:", error);
+               });
+        };
+
+        btn.addEventListener("click", getJoke);
+        getJoke();
+    </script>
+</body>
+</html>
